@@ -6,13 +6,13 @@ class UserController {
 
     if (await User.findOne({ email })) {
       return res.status(400).json({
-        erro: 'This email already in use.'
+        error: 'This email already in use'
       })
     }
 
     const user = await User.create(req.body)
 
-    return res.json(user)
+    return res.json({ user })
   }
 }
 
