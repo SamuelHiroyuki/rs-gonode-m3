@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const UserSchema = new mongoose.Schema(
   {
@@ -13,15 +13,13 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       lowercase: true
     },
-    password_hash: {
+    password: {
       type: String,
       required: true
     }
   },
   {
-    timestamps: true,
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true }
+    timestamps: true
   }
 )
 
@@ -30,12 +28,12 @@ UserSchema.pre('save', async function (next) {
 
   if (!user.isModified('password')) return next()
 
-  user.password_hash = await bcrypt.hash(user.password_hash, 8)
+  user.password = await bcrypt.hash(user.password, 8)
   return next()
 })
 
-UserSchema.methods.comparePassword = function (password, cb) {
-  return bcrypt.compare(password, this.password_hash)
+UserSchema.methods.comparePassword = function (pass, cb) {
+  return bcrypt.compare(pass, this.password)
 }
 
 module.exports = mongoose.model('User', UserSchema)
