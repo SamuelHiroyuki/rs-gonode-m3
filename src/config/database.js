@@ -1,4 +1,3 @@
 module.exports = {
-  uri:
-		'mongodb+srv://admin:admin@module3-4puxs.mongodb.net/database?retryWrites=true'
+  uri: process.env.DB_URL
 }
