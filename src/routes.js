@@ -5,7 +5,7 @@ const Controllers = require('./app/controllers')
 //
 
 // Middlewares
-const authMiddleware = require('./app/middlewares/auth')
+const authMiddleware = require('./app/middlewares/Auth')
 //
 
 routes.post('/tokens', Controllers.SessionController.create)
@@ -21,5 +21,8 @@ routes.get('/ads/:id', Controllers.AdController.getById)
 routes.post('/ads', Controllers.AdController.create)
 routes.put('/ads/:id', Controllers.AdController.update)
 routes.delete('/ads/:id', Controllers.AdController.delete)
+
+// Purchase
+routes.post('/purchases', Controllers.PurchaseController.create)
 
 module.exports = routes
