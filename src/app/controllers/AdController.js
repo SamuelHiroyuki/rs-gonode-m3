@@ -4,7 +4,9 @@ class AdController {
   async get (req, res) {
     const { page, perPage, minPrice, maxPrice, title } = req.query
 
-    const filters = {}
+    const filters = {
+      purchasedBy: null
+    }
 
     if (minPrice || maxPrice) {
       filters.price = {}
